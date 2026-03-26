@@ -59,7 +59,35 @@ def insertionSort(arr):
             if arr[j] < arr[j-1]:
                 arr[j], arr[j-1] = arr[j-1], arr[j]
     return arr
-            
+
+# Implementation of Quick sort:
+'''
+1. In each iteration select a pivot point and place it at its correct place.
+2. From the left check for the first number which is larger than the pivot. (index i)
+3. From the right check for the first number which is smaller than the pivot. (index j)
+4. Swap these values.
+5. Repeat these steps until i<j, once this condition breaks, pivot will be at its right place.
+6. Now left side of the pivot we have unsorted array of smaller values and on right side
+we have unsorted array of larger values. repeat this algorithm for both parts until only
+one element remain in the array (i==j).
+
+Complexity: Since we are dividing the array in two parts every time, it'll give O(log n)
+and for every time processing all the elements in array the total complexity is O(n log n).
+'''
+
+def quickSort(arr, start, end):
+    pivot = 0
+    i,j = start, end
+    while (i<=j):
+        while (arr[i]<=arr[pivot]):
+            i+=1
+        while (arr[j]> arr[pivot]):
+            J-=1
+        arr[i], arr[j] = arr[j], arr[i]
+    arr[j], arr[pivot] = arr[pivot], arr[j]
+    quickSort(arr, start, j-1)
+    quickSort(arr, j+1, end)
+    
 
 if __name__ == "__main__":
     print("Enter array to sort: ")
