@@ -99,6 +99,49 @@ def getPartition(arr, start, end):
     arr[pivot], arr[j] = arr[j], arr[pivot]
     return j
 
+# Implementation of Merge sort:
+'''
+Merge sort work on divide and conquer concept, we continuously devide the array in two parts until only one element remains in the array and then merge them back while maintaining the order.
+1. Divide the array in two half sized arrays (if odd size array, one part will be bigger than the other)
+2. Continue it till array size becomes one because single element is always sorted in itself.
+3. Now start copying elements from the two parts into a single array in correct order and return the array.
+4. Keep merging it similaryly until all sub arrays are merged into one.
+
+Time Complexity: dividing taks O(log n) and merging takes O(n) on each level of the tree. 
+Total complexity is O(n log n)
+Space complexity: O(n) because we use extra arry to copy the values.
+'''
+def mergeSort(arr):
+    return doMergeSort(arr, 0, len(arr)-1)
+
+def doMergeSort(arr, start, end):
+    if start==end:
+        return [arr[start]]
+    mid = int((start+end)/2)
+    left = doMergeSort(arr, start, mid)
+    right = doMergeSort(arr, mid+1, end)
+
+    return merge(left, right)
+
+def merge(left, right):
+    ret = []
+    i, j = 0, 0
+    while(i<len(left) and j<len(right)):
+        if left[i] <= right[j]:
+            ret.append(left[i])
+            i+=1
+        else:
+            ret.append(right[j])
+            j+=1
+    while(i<len(left)):
+        ret.append(left[i])
+        i+=1
+    while(j<len(right)):
+        ret.append(right[j])
+        j+=1
+    return ret
+
+
 
 if __name__ == "__main__":
     print("Enter array to sort: ")
@@ -107,4 +150,5 @@ if __name__ == "__main__":
     print(f"Bubble Sorted array is {bubbleSort(input_arr.copy())}")
     print(f"Insertion Sorted array is {insertionSort(input_arr.copy())}")
     print(f"Quick Sorted array is {quickSort(input_arr.copy())}")
+    print(f"Merge Sorted array is {mergeSort(input_arr.copy())}")
 
