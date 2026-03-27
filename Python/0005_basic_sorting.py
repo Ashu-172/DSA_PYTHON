@@ -66,28 +66,39 @@ def insertionSort(arr):
 2. From the left check for the first number which is larger than the pivot. (index i)
 3. From the right check for the first number which is smaller than the pivot. (index j)
 4. Swap these values.
-5. Repeat these steps until i<j, once this condition breaks, pivot will be at its right place.
+5. Repeat these steps till i<j, once this condition breaks and j<i, it means from start to j 
+all elements are smaller than pivot and from j+1 to end all elements are larger than pivot.
+6. Now swap the element at j with pivot, so that pivot is at its correct place.
 6. Now left side of the pivot we have unsorted array of smaller values and on right side
 we have unsorted array of larger values. repeat this algorithm for both parts until only
 one element remain in the array (i==j).
 
 Complexity: Since we are dividing the array in two parts every time, it'll give O(log n)
 and for every time processing all the elements in array the total complexity is O(n log n).
-'''
 
-def quickSort(arr, start, end):
-    pivot = 0
-    i,j = start, end
-    while (i<=j):
-        while (arr[i]<=arr[pivot]):
+'''
+def quickSort(arr):
+    doQuickSort(arr, 0, len(arr)-1)
+    return arr
+
+def doQuickSort(arr, start, end):
+    if start < end:
+        p = getPartition(arr, start, end)
+        doQuickSort(arr, start, p-1)
+        doQuickSort(arr, p+1, end)
+
+def getPartition(arr, start, end):
+    pivot, i, j = int((start+end)/2), start, end
+    while i<=j:
+        while i<=end and arr[i]<=arr[pivot]:
             i+=1
-        while (arr[j]> arr[pivot]):
-            J-=1
-        arr[i], arr[j] = arr[j], arr[i]
-    arr[j], arr[pivot] = arr[pivot], arr[j]
-    quickSort(arr, start, j-1)
-    quickSort(arr, j+1, end)
-    
+        while j>=start and arr[j]>arr[pivot]:
+            j-=1
+        if i<j:
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[pivot], arr[j] = arr[j], arr[pivot]
+    return j
+
 
 if __name__ == "__main__":
     print("Enter array to sort: ")
@@ -95,4 +106,5 @@ if __name__ == "__main__":
     print(f"Selection Sorted array is {selectionSort(input_arr.copy())}")
     print(f"Bubble Sorted array is {bubbleSort(input_arr.copy())}")
     print(f"Insertion Sorted array is {insertionSort(input_arr.copy())}")
+    print(f"Quick Sorted array is {quickSort(input_arr.copy())}")
 
