@@ -1,7 +1,9 @@
 
-# Solution: In quick sort, check if the partition is K and return value if true.
+# Solution 
+# Kth smallest: In quick sort, check if the partition index is K-1 and return value if true.
+# Kth largest: compare partition with n-k where N is the length of the array.
 def findKthLargest(arr, k):
-    return quickSelect(arr, k, 0, len(arr)-1)
+    return quickSelect(arr, len(arr)-k, 0, len(arr)-1)
 
 def quickSelect(arr, k, start, end):
     if start<=end:
