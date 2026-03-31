@@ -3,7 +3,7 @@
 # Kth smallest: In quick sort, check if the partition index is K-1 and return value if true.
 # Kth largest: compare partition with n-k where N is the length of the array.
 def findKthLargest(arr, k):
-    return quickSelect(arr, len(arr)-k, 0, len(arr)-1)
+    return quickSelect(arr, k-1, 0, len(arr)-1)
 
 def quickSelect(arr, k, start, end):
     if start<=end:
@@ -16,9 +16,12 @@ def quickSelect(arr, k, start, end):
         return res
     return -1
 
+import random
 def partition(arr, start, end):
-    pivot = int((start+end)/2)
-    i, j = start, end
+    # Pivot should be selected randomly and swapped with start or end value
+    p = random.randrange(start, end)
+    arr[start], arr[p] = arr[p],arr[start]
+    pivot,i, j = start, start, end
     while i<=j:
         while (i<=end and arr[i]<=arr[pivot]):
             i+=1

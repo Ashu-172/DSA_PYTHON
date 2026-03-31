@@ -87,8 +87,12 @@ def doQuickSort(arr, start, end):
         doQuickSort(arr, start, p-1)
         doQuickSort(arr, p+1, end)
 
+import random
 def getPartition(arr, start, end):
-    pivot, i, j = int((start+end)/2), start, end
+    # Pivot should be selected randomly and swapped with start or end value
+    p = random.randrange(start, end)
+    arr[start], arr[p] = arr[p],arr[start]
+    pivot,i,j = start, start, end
     while i<=j:
         while i<=end and arr[i]<=arr[pivot]:
             i+=1
